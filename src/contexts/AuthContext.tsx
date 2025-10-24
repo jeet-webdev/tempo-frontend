@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 import { User, UserRole } from '@/types';
-
+import { loginApi } from '@/lib/authApi';
 interface AuthContextType {
   user: User | null;
   loading: boolean;
@@ -68,7 +68,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(false);
 
-  const login = async (email: string, password: string): Promise<boolean> => {
+  /*const login = async (email: string, password: string): Promise<boolean> => {
     setLoading(true);
     
     return new Promise((resolve) => {
@@ -98,6 +98,21 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         }
       }, 500);
     });
+  };*/
+
+  const login = async (email: string, password: string) => {
+    try {
+      const response = await loginApi(email, password);
+      setUser({
+        ...response.data,
+        role: response.role.toLowerCase() as UserRole, // convert to lowercase to match your type
+      });
+      localStorage.setItem("auth_token", response.token);
+      return true;
+    } catch (err) {
+      console.error("Login failed", err);
+      return false;
+    }
   };
 
   const logout = () => {
