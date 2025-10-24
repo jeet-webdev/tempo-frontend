@@ -8,7 +8,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { LogIn, User } from "lucide-react";
 
 export default function LoginPage() {
-  const { login, switchUser } = useAuth();
+  const { login } = useAuth();
   const { toast } = useToast();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -28,6 +28,7 @@ export default function LoginPage() {
 
     setIsLoading(true);
     const success = await login(email, password);
+    console.log(success,'this is api response')
     setIsLoading(false);
 
     if (!success) {
@@ -137,21 +138,21 @@ export default function LoginPage() {
             </Button>
           </form>
 
-          <div className="relative mb-8">
+          {/* <div className="relative mb-8">
             <div className="divider-liquid"></div>
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
               <span className="px-4 py-1 glass-card text-label text-xs">
                 OR DEMO MODE
               </span>
             </div>
-          </div>
+          </div> */}
 
           {/* Quick Login Buttons */}
-          <div className="space-y-3">
+          {/* <div className="space-y-3">
             {roles.map(({ role, label, email }) => (
               <button
                 key={role}
-                onClick={() => switchUser(role)}
+                //onClick={() => switchUser(role)}
                 className="w-full h-14 glass-card hover:glass-card flex items-center justify-between px-5 text-sm transition-all duration-250"
               >
                 <span className="flex items-center gap-4">
@@ -165,11 +166,11 @@ export default function LoginPage() {
                 <span className="text-muted text-xs">{email}</span>
               </button>
             ))}
-          </div>
+          </div> */}
 
-          <p className="text-center text-xs text-muted mt-8">
+          {/* <p className="text-center text-xs text-muted mt-8">
             Demo credentials: owner@pc.local / owner123
-          </p>
+          </p> */}
         </div>
       </div>
     </div>

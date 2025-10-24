@@ -4,7 +4,7 @@ export interface User {
   id: string;
   email: string;
   name: string;
-  employeeCode: string;
+  employeeCode?: string;
   role: UserRole;
   password?: string; // Stored password (in production, this would be hashed)
   active?: boolean;
